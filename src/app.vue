@@ -5,8 +5,16 @@
       <input type="file" accept=".res" id="upload-res" @change="onSelectFile" />
     </div>
 
-    <div class="convert-to-csv" @click="convertToCSV" v-if="file">Export CSV file</div>
-
+    <template v-if="file">
+      <div class="convert-to-csv" @click="convertToCSV">Export CSV file</div>
+      <a
+      target="_blank"
+        class="how-to"
+        href="https://digitalreadymarketing.com/open-chinese-japanese-encoding-gwmt-csv-file/"
+      >
+        How To: correct open japanese files in excel
+      </a>
+    </template>
     <div class="supports">
       <h3>Supports files</h3>
       <div class="supports-name" v-for="(_, name) in parsers" :key="name">
@@ -187,6 +195,17 @@ label {
   &:hover {
     cursor: pointer;
     background-color: rgba(0, 183, 255, 0.7);
+  }
+}
+
+.how-to {
+  display: block;
+  padding: 10px;
+  background-color: rgba(0, 255, 55, 0.4);
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(0, 255, 55, 0.7);
   }
 }
 </style>
