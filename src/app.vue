@@ -6,6 +6,13 @@
     </div>
 
     <div class="convert-to-csv" @click="convertToCSV" v-if="file">Export CSV file</div>
+
+    <div class="supports">
+      <h3>Supports files</h3>
+      <div class="supports-name" v-for="(_, name) in parsers" :key="name">
+        {{ name }}
+      </div>
+    </div>
   </aside>
 
   <main class="main">
@@ -98,7 +105,7 @@ export default defineComponent({
 
   async created() {
     this.resRegisterParser("tb_UI_String", tb_UI_String);
-    // this.resRegisterParser("tb_Option_String", tb_Option_String);
+    this.resRegisterParser("tb_Option_String", tb_Option_String);
   },
 
   components: {
@@ -117,6 +124,11 @@ export default defineComponent({
   display: grid;
   grid-template-columns: 200px 1fr;
 }
+
+h3 {
+  font-size: 24rem;
+  padding: 40px 10px 20px 10px;
+}
 </style>
 
 <style lang="scss" scoped>
@@ -128,7 +140,12 @@ export default defineComponent({
   overflow: auto;
   padding: 40px;
 }
+</style>
 
+<style lang="scss" scoped>
+.supports {
+  padding: 10px;
+}
 </style>
 
 <style lang="scss" scoped>
