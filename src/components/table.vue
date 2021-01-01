@@ -48,7 +48,7 @@ export default defineComponent({
       gridTemplateColumns: `repeat(${keys.length}, min-content)`,
     };
 
-    const limit = 1000;
+    const limit = 300;
     const pages = Math.ceil(props.table.count / limit);
 
     return { keys, tableStyle, pages, limit };
