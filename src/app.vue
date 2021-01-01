@@ -139,6 +139,7 @@ h3 {
 .main {
   overflow: auto;
   padding: 40px;
+  max-width: 100%;
 }
 </style>
 
