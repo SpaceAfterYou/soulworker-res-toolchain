@@ -88,6 +88,7 @@ export default defineComponent({
   background-color: var(--pink-color);
   pointer-events: none;
 }
+
 .table {
   display: grid;
   gap: 10px 20px;
@@ -100,6 +101,6 @@ export default defineComponent({
 
 .key {
   background-color: rgba(255, 0, 85, 0.4);
-  white-space: unset;
+  text-transform: uppercase;
 }
 </style>
