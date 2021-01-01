@@ -920,6 +920,13 @@
   resolved "https://registry.yarnpkg.com/@types/anymatch/-/anymatch-1.3.1.tgz#336badc1beecb9dacc38bea2cf32adf627a8421a"
   integrity sha512-/+CRPXpBDpo2RK9C68N3b2cOvO0Cf5B9aPijHsoDQTHivnGSObdOF2BRQOYjojWTDy6nQvMjmqRXIxH55VjxxA==
 
+"@types/binary-parser@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@types/binary-parser/-/binary-parser-1.5.0.tgz#d8a9676a7763b91c7537347d1d596d8b96adb164"
+  integrity sha512-eBMqKUPRjXX+E30JQOcda8Je4lw4TyQvDSOXhWx+T019lki2TURNf0kVaR27LG4B2cLu4JXfrnNp+3aEq23leA==
+  dependencies:
+    "@types/node" "*"
+
 "@types/body-parser@*":
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.19.0.tgz#0685b3c47eb3006ffed117cdd55164b61f80538f"
@@ -1978,6 +1985,11 @@ binary-extensions@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.1.0.tgz#30fa40c9e7fe07dbc895678cd287024dea241dd9"
   integrity sha512-1Yj8h9Q+QDF5FzhMs/c9+6UntbD5MkRfRwac8DoEm9ZfUBZ7tZ55YcGVAzEe4bXsdQHEk+s9S5wsOKVdZrw0tQ==
+
+binary-parser@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/binary-parser/-/binary-parser-1.7.0.tgz#117dbfb071dde44a4910ea072a8d32e1549e8e12"
+  integrity sha512-lIWQLmiEJtx2ZAUPbZWLA/0bgxYdWkySU9pZq5dNRcyzliZCBIwbgLeyydu57GFskGcZDbirMjPSgVcUgZpbdg==
 
 bindings@^1.5.0:
   version "1.5.0"

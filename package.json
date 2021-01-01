@@ -7,6 +7,8 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@types/binary-parser": "^1.5.0",
+    "binary-parser": "^1.7.0",
     "core-js": "^3.6.5",
     "vue": "^3.0.0"
   },
