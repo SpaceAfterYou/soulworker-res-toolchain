@@ -43,15 +43,24 @@ export default defineComponent({
     convertToCSV() {
       const header = Object.keys(this.file!.parsed.rows[0]).join();
       const body = this.file!.parsed.rows.map((c) => Object.values(c).join()).join("\n");
-      const csvContent = `data:text/csv;charset=utf-8,${header}\n${body}`;
 
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
+      this.downloadFile(`${header}\n${body}`, `${this.file!.filename}.csv`);
+    },
 
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", `${this.file!.filename}.csv`);
+    downloadFile(data: string, fileName: string) {
+      var csvData = data;
+      var blob = new Blob([csvData], {
+        type: "application/csv;charset=utf-16;",
+      });
 
+      var link = document.createElement("a");
+      var csvUrl = URL.createObjectURL(blob);
+      link.href = csvUrl;
+      link.style.visibility = "hidden";
+      link.download = fileName;
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
     },
 
     onSelectFile(ev: Event) {
