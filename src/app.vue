@@ -34,6 +34,7 @@ import { defineAsyncComponent, defineComponent } from "vue";
 
 import tb_UI_String from "./restypes/client/tb_UI_String";
 import tb_Option_String from "./restypes/client/tb_Option_String";
+import tb_item_model from "./restypes/client/tb_item_model";
 
 import { basename } from "path";
 
@@ -84,7 +85,7 @@ export default defineComponent({
 
       fileReader.onload = (ev) =>
         (this.file = this.resParse(
-          basename(file.name, ".res"),
+          basename(file.name.toLowerCase(), ".res"),
           Buffer.from(ev.target!.result as Uint8Array),
         ));
 
@@ -121,8 +122,9 @@ export default defineComponent({
   },
 
   async created() {
-    this.resRegisterParser("tb_UI_String", tb_UI_String);
-    this.resRegisterParser("tb_Option_String", tb_Option_String);
+    this.resRegisterParser("tb_UI_String".toLowerCase(), tb_UI_String);
+    this.resRegisterParser("tb_Option_String".toLowerCase(), tb_Option_String);
+    this.resRegisterParser("tb_item_model".toLowerCase(), tb_item_model);
   },
 
   components: {
