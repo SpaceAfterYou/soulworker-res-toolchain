@@ -35,6 +35,7 @@ import { defineAsyncComponent, defineComponent } from "vue";
 import tb_UI_String from "./restypes/client/tb_UI_String";
 import tb_Option_String from "./restypes/client/tb_Option_String";
 import tb_item_model from "./restypes/client/tb_item_model";
+import tb_item from "./restypes/client/tb_item";
 
 import { basename } from "path";
 
@@ -125,6 +126,7 @@ export default defineComponent({
     this.resRegisterParser("tb_UI_String".toLowerCase(), tb_UI_String);
     this.resRegisterParser("tb_Option_String".toLowerCase(), tb_Option_String);
     this.resRegisterParser("tb_item_model".toLowerCase(), tb_item_model);
+    this.resRegisterParser("tb_item".toLowerCase(), tb_item);
   },
 
   components: {
