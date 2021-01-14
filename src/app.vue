@@ -41,6 +41,7 @@ import tb_Create_Cloth from "./restypes/client/tb_Create_Cloth";
 import tb_CreateOption from "./restypes/client/tb_CreateOption";
 import tb_Customize_Info from "./restypes/client/tb_Customize_Info";
 import tb_Customize_Eyes from "./restypes/client/tb_Customize_Eyes";
+import tb_Customize_Hair from "./restypes/client/tb_Customize_Hair";
 
 import { basename } from "path";
 
@@ -137,6 +138,7 @@ export default defineComponent({
     this.resRegisterParser("tb_CreateOption".toLowerCase(), tb_CreateOption);
     this.resRegisterParser("tb_Customize_Info".toLowerCase(), tb_Customize_Info);
     this.resRegisterParser("tb_Customize_Eyes".toLowerCase(), tb_Customize_Eyes);
+    this.resRegisterParser("tb_Customize_Hair".toLowerCase(), tb_Customize_Hair);
   },
 
   components: {
