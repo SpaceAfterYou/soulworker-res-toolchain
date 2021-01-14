@@ -36,6 +36,10 @@ import tb_UI_String from "./restypes/client/tb_UI_String";
 import tb_Option_String from "./restypes/client/tb_Option_String";
 import tb_item_model from "./restypes/client/tb_item_model";
 import tb_item from "./restypes/client/tb_item";
+import tb_Appearance from "./restypes/client/tb_Appearance";
+import tb_Create_Cloth from "./restypes/client/tb_Create_Cloth";
+import tb_CreateOption from "./restypes/client/tb_CreateOption";
+import tb_Customize_Info from "./restypes/client/tb_Customize_Info";
 
 import { basename } from "path";
 
@@ -127,6 +131,10 @@ export default defineComponent({
     this.resRegisterParser("tb_Option_String".toLowerCase(), tb_Option_String);
     this.resRegisterParser("tb_item_model".toLowerCase(), tb_item_model);
     this.resRegisterParser("tb_item".toLowerCase(), tb_item);
+    this.resRegisterParser("tb_Appearance".toLowerCase(), tb_Appearance);
+    this.resRegisterParser("tb_Create_Cloth".toLowerCase(), tb_Create_Cloth);
+    this.resRegisterParser("tb_CreateOption".toLowerCase(), tb_CreateOption);
+    this.resRegisterParser("tb_Customize_Info".toLowerCase(), tb_Customize_Info);
   },
 
   components: {
