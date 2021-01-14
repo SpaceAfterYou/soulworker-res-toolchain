@@ -42,6 +42,7 @@ import tb_CreateOption from "./restypes/client/tb_CreateOption";
 import tb_Customize_Info from "./restypes/client/tb_Customize_Info";
 import tb_Customize_Eyes from "./restypes/client/tb_Customize_Eyes";
 import tb_Customize_Hair from "./restypes/client/tb_Customize_Hair";
+import tb_Customize_Skin from "./restypes/client/tb_Customize_Skin";
 
 import { basename } from "path";
 
@@ -141,6 +142,7 @@ export default defineComponent({
     this.resRegisterParser("tb_Customize_Info", tb_Customize_Info);
     this.resRegisterParser("tb_Customize_Eyes", tb_Customize_Eyes);
     this.resRegisterParser("tb_Customize_Hair", tb_Customize_Hair);
+    this.resRegisterParser("tb_Customize_Skin", tb_Customize_Skin);
   },
 
   components: {
