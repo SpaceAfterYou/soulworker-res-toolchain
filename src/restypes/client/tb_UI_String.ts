@@ -6,4 +6,4 @@ export default (parser = new Parser()) => parser
   .uint32("id")
   .uint8("unknown1")
   .uint16("strLen1")
-  .swstring('str1', 'strLen1');
+  .swstring('str1');

@@ -10,6 +10,4 @@ export default (parser = new Parser()) => parser
   .uint32("v4")
   .uint32("v5")
   .uint32("v6")
-
-  .uint16("v7Len1")
-  .swstring("v7", 'v7Len1')
+  .swstring("v7")

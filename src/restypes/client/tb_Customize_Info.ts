@@ -15,19 +15,9 @@ export default (parser = new Parser()) => parser
   .uint8("v9")
   .uint8("v10")
   .uint8("v11")
-
-  .uint16("v12Len1")
-  .swstring("v12", 'v12Len1')
-
-  .uint16("v13Len1")
-  .swstring("v13", 'v13Len1')
-
-  .uint16("v4Len1")
-  .swstring("v4", 'v4Len1')
-
-  .uint16("v15Len1")
-  .swstring("v15", 'v15Len1')
-
-  .uint16("v16Len1")
-  .swstring("v16", 'v16Len1')
+  .swstring("v12")
+  .swstring("v13")
+  .swstring("v4")
+  .swstring("v15")
+  .swstring("v16")
 
