@@ -168,7 +168,7 @@ export default defineComponent({
   background-color: rgb(29, 29, 29);
   color: #ebebeb;
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: min-content 1fr;
 }
 
 h3 {
