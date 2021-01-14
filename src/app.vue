@@ -46,6 +46,7 @@ import tb_Customize_Skin from "./restypes/client/tb_Customize_Skin";
 import tb_Customize_View_Ani from "./restypes/client/tb_Customize_View_Ani";
 import tb_Customize_View_Costume from "./restypes/client/tb_Customize_View_Costume";
 import tb_Customize_View_Sound from "./restypes/client/tb_Customize_View_Sound";
+import tb_Customize_View_Weapon from "./restypes/client/tb_Customize_View_Weapon";
 
 import { basename } from "path";
 
@@ -150,6 +151,7 @@ export default defineComponent({
     this.resRegisterParser("tb_Customize_View_Ani", tb_Customize_View_Ani);
     this.resRegisterParser("tb_Customize_View_Costume", tb_Customize_View_Costume);
     this.resRegisterParser("tb_Customize_View_Sound", tb_Customize_View_Sound);
+    this.resRegisterParser("tb_Customize_View_Weapon", tb_Customize_View_Weapon);
   },
 
   components: {
