@@ -109,7 +109,9 @@ export default defineComponent({
     },
 
     resRegisterParser(name: string, func: (parser: Parser) => any) {
-      this.parsers[name] = (new Parser()
+      const fixedName = name.toLowerCase();
+
+      this.parsers[fixedName] = (new Parser()
         .endianess("little")
         .uint32("count")
         .array("rows", {
@@ -129,16 +131,16 @@ export default defineComponent({
   },
 
   async created() {
-    this.resRegisterParser("tb_UI_String".toLowerCase(), tb_UI_String);
-    this.resRegisterParser("tb_Option_String".toLowerCase(), tb_Option_String);
-    this.resRegisterParser("tb_item_model".toLowerCase(), tb_item_model);
-    this.resRegisterParser("tb_item".toLowerCase(), tb_item);
-    this.resRegisterParser("tb_Appearance".toLowerCase(), tb_Appearance);
-    this.resRegisterParser("tb_Create_Cloth".toLowerCase(), tb_Create_Cloth);
-    this.resRegisterParser("tb_CreateOption".toLowerCase(), tb_CreateOption);
-    this.resRegisterParser("tb_Customize_Info".toLowerCase(), tb_Customize_Info);
-    this.resRegisterParser("tb_Customize_Eyes".toLowerCase(), tb_Customize_Eyes);
-    this.resRegisterParser("tb_Customize_Hair".toLowerCase(), tb_Customize_Hair);
+    this.resRegisterParser("tb_UI_String", tb_UI_String);
+    this.resRegisterParser("tb_Option_String", tb_Option_String);
+    this.resRegisterParser("tb_item_model", tb_item_model);
+    this.resRegisterParser("tb_item", tb_item);
+    this.resRegisterParser("tb_Appearance", tb_Appearance);
+    this.resRegisterParser("tb_Create_Cloth", tb_Create_Cloth);
+    this.resRegisterParser("tb_CreateOption", tb_CreateOption);
+    this.resRegisterParser("tb_Customize_Info", tb_Customize_Info);
+    this.resRegisterParser("tb_Customize_Eyes", tb_Customize_Eyes);
+    this.resRegisterParser("tb_Customize_Hair", tb_Customize_Hair);
   },
 
   components: {
