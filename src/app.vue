@@ -5,17 +5,19 @@
       <input type="file" accept=".res" id="upload-res" @change="onSelectFile" />
     </div>
 
+    <div class="sidebar-block">Tested on KR files ver <span class="red">1.7.50.11</span></div>
+
     <template v-if="file">
       <div class="convert-to-csv" @click="convertToCSV">Export CSV file</div>
       <a
-      target="_blank"
+        target="_blank"
         class="how-to"
         href="https://digitalreadymarketing.com/open-chinese-japanese-encoding-gwmt-csv-file/"
       >
         How To: correct open japanese files in excel
       </a>
     </template>
-    <div class="supports">
+    <div class="sidebar-block">
       <h3>Supports files</h3>
       <div class="supports-name" v-for="(_, name) in parsers" :key="name">
         {{ name }}
@@ -47,6 +49,7 @@ import tb_Customize_View_Ani from "./restypes/client/tb_Customize_View_Ani";
 import tb_Customize_View_Costume from "./restypes/client/tb_Customize_View_Costume";
 import tb_Customize_View_Sound from "./restypes/client/tb_Customize_View_Sound";
 import tb_Customize_View_Weapon from "./restypes/client/tb_Customize_View_Weapon";
+import tb_Event_Condition from "./restypes/client/tb_Event_Condition";
 
 import { basename } from "path";
 
@@ -152,6 +155,7 @@ export default defineComponent({
     this.resRegisterParser("tb_Customize_View_Costume", tb_Customize_View_Costume);
     this.resRegisterParser("tb_Customize_View_Sound", tb_Customize_View_Sound);
     this.resRegisterParser("tb_Customize_View_Weapon", tb_Customize_View_Weapon);
+    this.resRegisterParser("tb_Event_Condition", tb_Event_Condition);
   },
 
   components: {
@@ -190,8 +194,12 @@ h3 {
 </style>
 
 <style lang="scss" scoped>
-.supports {
+.sidebar-block {
   padding: 10px;
+}
+
+.red {
+  color: rgb(110, 223, 252);
 }
 </style>
 
