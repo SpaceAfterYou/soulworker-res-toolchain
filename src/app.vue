@@ -34,22 +34,25 @@
 import { Parser } from "binary-parser";
 import { defineAsyncComponent, defineComponent } from "vue";
 
-import tb_UI_String from "./restypes/client/tb_UI_String";
-import tb_Option_String from "./restypes/client/tb_Option_String";
-import tb_item_model from "./restypes/client/tb_item_model";
-import tb_item from "./restypes/client/tb_item";
-import tb_Appearance from "./restypes/client/tb_Appearance";
-import tb_Create_Cloth from "./restypes/client/tb_Create_Cloth";
-import tb_CreateOption from "./restypes/client/tb_CreateOption";
-import tb_Customize_Info from "./restypes/client/tb_Customize_Info";
-import tb_Customize_Eyes from "./restypes/client/tb_Customize_Eyes";
-import tb_Customize_Hair from "./restypes/client/tb_Customize_Hair";
-import tb_Customize_Skin from "./restypes/client/tb_Customize_Skin";
-import tb_Customize_View_Ani from "./restypes/client/tb_Customize_View_Ani";
-import tb_Customize_View_Costume from "./restypes/client/tb_Customize_View_Costume";
-import tb_Customize_View_Sound from "./restypes/client/tb_Customize_View_Sound";
-import tb_Customize_View_Weapon from "./restypes/client/tb_Customize_View_Weapon";
-import tb_Event_Condition from "./restypes/client/tb_Event_Condition";
+import tb_UI_String from "./restypes/client/kr/tb_UI_String";
+import tb_Option_String from "./restypes/client/kr/tb_Option_String";
+import tb_item_model from "./restypes/client/kr/tb_item_model";
+import tb_item from "./restypes/client/kr/tb_item";
+import tb_Appearance from "./restypes/client/kr/tb_Appearance";
+import tb_Create_Cloth from "./restypes/client/kr/tb_Create_Cloth";
+import tb_CreateOption from "./restypes/client/kr/tb_CreateOption";
+import tb_Customize_Info from "./restypes/client/kr/tb_Customize_Info";
+import tb_Customize_Eyes from "./restypes/client/kr/tb_Customize_Eyes";
+import tb_Customize_Hair from "./restypes/client/kr/tb_Customize_Hair";
+import tb_Customize_Skin from "./restypes/client/kr/tb_Customize_Skin";
+import tb_Customize_View_Ani from "./restypes/client/kr/tb_Customize_View_Ani";
+import tb_Customize_View_Costume from "./restypes/client/kr/tb_Customize_View_Costume";
+import tb_Customize_View_Sound from "./restypes/client/kr/tb_Customize_View_Sound";
+import tb_Customize_View_Weapon from "./restypes/client/kr/tb_Customize_View_Weapon";
+import tb_Event_Condition from "./restypes/client/kr/tb_Event_Condition";
+
+import tb_CashBilling_Info from "./restypes/client/jp/tb_CashBilling_Info";
+import tb_CashShop from "./restypes/client/jp/tb_CashShop";
 
 import { basename } from "path";
 
@@ -156,6 +159,8 @@ export default defineComponent({
     this.resRegisterParser("tb_Customize_View_Sound", tb_Customize_View_Sound);
     this.resRegisterParser("tb_Customize_View_Weapon", tb_Customize_View_Weapon);
     this.resRegisterParser("tb_Event_Condition", tb_Event_Condition);
+    this.resRegisterParser("tb_CashBilling_Info", tb_CashBilling_Info);
+    this.resRegisterParser("tb_CashShop", tb_CashShop);
   },
 
   components: {
