@@ -53,7 +53,7 @@ import tb_Event_Condition from "./restypes/client/kr/tb_Event_Condition";
 
 import tb_CashBilling_Info from "./restypes/client/jp/tb_CashBilling_Info";
 import tb_CashShop from "./restypes/client/jp/tb_CashShop";
-import tb_NPC from "./restypes/client/kr/tb_NPC";
+import tb_NPC from "./restypes/client/jp/tb_NPC";
 
 import { basename } from "path";
 
