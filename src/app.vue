@@ -53,6 +53,7 @@ import tb_Event_Condition from "./restypes/client/kr/tb_Event_Condition";
 
 import tb_CashBilling_Info from "./restypes/client/jp/tb_CashBilling_Info";
 import tb_CashShop from "./restypes/client/jp/tb_CashShop";
+import tb_NPC from "./restypes/client/kr/tb_NPC";
 
 import { basename } from "path";
 
@@ -161,6 +162,7 @@ export default defineComponent({
     this.resRegisterParser("tb_Event_Condition", tb_Event_Condition);
     this.resRegisterParser("tb_CashBilling_Info", tb_CashBilling_Info);
     this.resRegisterParser("tb_CashShop", tb_CashShop);
+    this.resRegisterParser("tb_NPC", tb_NPC);
   },
 
   components: {
