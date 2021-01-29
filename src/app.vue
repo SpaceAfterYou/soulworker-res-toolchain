@@ -70,6 +70,7 @@ import Japanese_tb_Social_Item from "./restypes/client/jp/tb_Social_Item";
 import Japanese_tb_Title_Info from "./restypes/client/jp/tb_Title_Info";
 import Japanese_tb_Title_Reward from "./restypes/client/jp/tb_Title_Reward";
 // import Japanese_tb_Title_String from "./restypes/client/jp/tb_Title_String";
+import Japanese_tb_Buff from "./restypes/client/jp/tb_Buff";
 
 import { basename } from "path";
 
@@ -224,6 +225,7 @@ export default defineComponent({
       resRegisterParser(GameToken.jp, "1.11.9.3", "tb_Title_Info", Japanese_tb_Title_Info);
       resRegisterParser(GameToken.jp, "1.11.9.3", "tb_Title_Reward", Japanese_tb_Title_Reward);
       // resRegisterParser(GameToken.jp, "1.11.9.3", "tb_Title_String", Japanese_tb_Title_String);
+      resRegisterParser(GameToken.jp, "1.11.9.3", "tb_Buff", Japanese_tb_Buff);
     };
 
     registerKorean();
@@ -240,7 +242,6 @@ export default defineComponent({
   },
 });
 </script>
-
 
 <style lang="scss">
 @use "@/styles/reset.scss";
