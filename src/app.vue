@@ -66,6 +66,11 @@ import Japanese_tb_Akashic_Records from "./restypes/client/jp/tb_Akashic_Records
 import Japanese_tb_Random_Option from "./restypes/client/jp/tb_Random_Option";
 import Japanese_tb_Social_Item from "./restypes/client/jp/tb_Social_Item";
 
+// import Japanese_tb_Echelon from "./restypes/client/jp/tb_Echelon";
+import Japanese_tb_Title_Info from "./restypes/client/jp/tb_Title_Info";
+import Japanese_tb_Title_Reward from "./restypes/client/jp/tb_Title_Reward";
+// import Japanese_tb_Title_String from "./restypes/client/jp/tb_Title_String";
+
 import { basename } from "path";
 
 type ResTable = { count: number; rows: { [key: string]: any }[] };
@@ -214,6 +219,11 @@ export default defineComponent({
       resRegisterParser(GameToken.jp, "1.11.11.7", "tb_Akashic_Records", Japanese_tb_Akashic_Records);
       resRegisterParser(GameToken.jp, "1.11.11.7", "tb_Random_Option", Japanese_tb_Random_Option);
       resRegisterParser(GameToken.jp, "1.11.11.7", "tb_Social_Item", Japanese_tb_Social_Item);
+
+      // resRegisterParser(GameToken.jp, "1.11.9.3", "tb_Echelon", Japanese_tb_Echelon);
+      resRegisterParser(GameToken.jp, "1.11.9.3", "tb_Title_Info", Japanese_tb_Title_Info);
+      resRegisterParser(GameToken.jp, "1.11.9.3", "tb_Title_Reward", Japanese_tb_Title_Reward);
+      // resRegisterParser(GameToken.jp, "1.11.9.3", "tb_Title_String", Japanese_tb_Title_String);
     };
 
     registerKorean();
