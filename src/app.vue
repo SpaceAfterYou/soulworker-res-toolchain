@@ -58,6 +58,9 @@ import Korean_tb_Customize_View_Costume from "./restypes/client/kr/tb_Customize_
 import Korean_tb_Customize_View_Sound from "./restypes/client/kr/tb_Customize_View_Sound";
 import Korean_tb_Customize_View_Weapon from "./restypes/client/kr/tb_Customize_View_Weapon";
 import Korean_tb_Event_Condition from "./restypes/client/kr/tb_Event_Condition";
+import Korean_tb_District from "./restypes/client/kr/tb_District";
+import Korean_tb_Npc from "./restypes/client/kr/tb_Npc";
+import Korean_tb_Photo_Item from "./restypes/client/kr/tb_Photo_Item";
 
 import Japanese_tb_CashBilling_Info from "./restypes/client/jp/tb_CashBilling_Info";
 import Japanese_tb_CashShop from "./restypes/client/jp/tb_CashShop";
@@ -182,12 +185,12 @@ export default defineComponent({
     const resRegisterParser = (gameToken: GameToken, tested: string, name: string, func: (parser: Parser) => any) => {
       const fixedName = name.toLowerCase();
 
-      const parser = (new Parser()
+      const parser = new Parser()
         .endianess("little")
         .uint32("count")
         .array("rows", { length: "count", type: func(new Parser()) })
         .uint16("crcLen")
-        .string("crc", { length: "crcLen" }) as unknown) as Parser;
+        .string("crc", { length: "crcLen" }) as unknown as Parser;
 
       clients[gameToken].parsers[fixedName] = { tested, parser };
     };
@@ -210,6 +213,9 @@ export default defineComponent({
       resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Customize_View_Sound", Korean_tb_Customize_View_Sound);
       resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Customize_View_Weapon", Korean_tb_Customize_View_Weapon);
       resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Event_Condition", Korean_tb_Event_Condition);
+      resRegisterParser(GameToken.kr, "1.7.66.13", "tb_District", Korean_tb_District);
+      resRegisterParser(GameToken.kr, "1.7.66.13", "tb_Npc", Korean_tb_Npc);
+      resRegisterParser(GameToken.kr, "1.7.66.13", "tb_Photo_Item", Korean_tb_Photo_Item);
     };
 
     const registerJapanese = () => {
@@ -286,7 +292,6 @@ h3 {
   color: rgb(110, 223, 252);
 }
 </style>
-
 
 <style lang="scss" scoped>
 .client-type-active-name-wrapper {
