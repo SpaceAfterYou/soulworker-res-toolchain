@@ -60,6 +60,7 @@ import Korean_tb_Customize_View_Weapon from "./restypes/client/kr/tb_Customize_V
 import Korean_tb_Event_Condition from "./restypes/client/kr/tb_Event_Condition";
 import Korean_tb_District from "./restypes/client/kr/tb_District";
 import Korean_tb_Npc from "./restypes/client/kr/tb_Npc";
+import Korean_tb_Photo_Item from "./restypes/client/kr/tb_Photo_Item";
 
 import Japanese_tb_CashBilling_Info from "./restypes/client/jp/tb_CashBilling_Info";
 import Japanese_tb_CashShop from "./restypes/client/jp/tb_CashShop";
@@ -214,6 +215,7 @@ export default defineComponent({
       resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Event_Condition", Korean_tb_Event_Condition);
       resRegisterParser(GameToken.kr, "1.7.66.13", "tb_District", Korean_tb_District);
       resRegisterParser(GameToken.kr, "1.7.66.13", "tb_Npc", Korean_tb_Npc);
+      resRegisterParser(GameToken.kr, "1.7.66.13", "tb_Photo_Item", Korean_tb_Photo_Item);
     };
 
     const registerJapanese = () => {
