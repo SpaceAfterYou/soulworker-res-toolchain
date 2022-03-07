@@ -7,19 +7,19 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "@types/binary-parser": "^1.5.0",
-    "binary-parser": "^1.7.0",
-    "core-js": "^3.8.3",
-    "vue": "^3.0.0"
+    "@types/binary-parser": "^1.5.1",
+    "binary-parser": "^2.0.2",
+    "core-js": "^3.21.1",
+    "vue": "^3.2.31"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.11",
-    "@vue/cli-plugin-typescript": "~4.5.11",
-    "@vue/cli-service": "~4.5.11",
-    "@vue/compiler-sfc": "^3.0.5",
-    "sass": "^1.32.5",
-    "sass-loader": "^10.1.1",
-    "typescript": "~4.1.3"
+    "@vue/cli-plugin-babel": "~5.0.1",
+    "@vue/cli-plugin-typescript": "~5.0.1",
+    "@vue/cli-service": "~5.0.1",
+    "@vue/compiler-sfc": "^3.2.31",
+    "sass": "^1.49.9",
+    "sass-loader": "^12.6.0",
+    "typescript": "~4.6.2"
   },
   "browserslist": [
     "> 1%",
