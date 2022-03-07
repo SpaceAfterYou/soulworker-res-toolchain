@@ -9,10 +9,10 @@
       <div class="client-type-active">
         <span class="client-type-active-caption"> Active client: </span>
         <span class="client-type-active-name-wrapper">
-          <span class="red"> {{ clientName[activeClient.token] }} </span>
+          <span class="red"> {{ clientNames[activeClient.token] }} </span>
           <div class="client-type-available-list">
             <div class="client-type-available-item" v-for="(client, token) of clients" :key="`clients-${token}`" @click="changeActiveClient(client)">
-              {{ clientName[token] }}
+              {{ clientNames[token] }}
             </div>
           </div>
         </span>
@@ -38,220 +38,104 @@
   </main>
 </template>
 
-<script lang="ts">
-import { Parser } from "binary-parser";
-import { defineAsyncComponent, defineComponent, ref } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 
-import Korean_tb_UI_String from "./restypes/client/kr/tb_UI_String";
-import Korean_tb_Option_String from "./restypes/client/kr/tb_Option_String";
-import Korean_tb_item_model from "./restypes/client/kr/tb_item_model";
-import Korean_tb_item from "./restypes/client/kr/tb_item";
-import Korean_tb_Appearance from "./restypes/client/kr/tb_Appearance";
-import Korean_tb_Create_Cloth from "./restypes/client/kr/tb_Create_Cloth";
-import Korean_tb_CreateOption from "./restypes/client/kr/tb_CreateOption";
-import Korean_tb_Customize_Info from "./restypes/client/kr/tb_Customize_Info";
-import Korean_tb_Customize_Eyes from "./restypes/client/kr/tb_Customize_Eyes";
-import Korean_tb_Customize_Hair from "./restypes/client/kr/tb_Customize_Hair";
-import Korean_tb_Customize_Skin from "./restypes/client/kr/tb_Customize_Skin";
-import Korean_tb_Customize_View_Ani from "./restypes/client/kr/tb_Customize_View_Ani";
-import Korean_tb_Customize_View_Costume from "./restypes/client/kr/tb_Customize_View_Costume";
-import Korean_tb_Customize_View_Sound from "./restypes/client/kr/tb_Customize_View_Sound";
-import Korean_tb_Customize_View_Weapon from "./restypes/client/kr/tb_Customize_View_Weapon";
-import Korean_tb_Event_Condition from "./restypes/client/kr/tb_Event_Condition";
-import Korean_tb_District from "./restypes/client/kr/tb_District";
-import Korean_tb_Npc from "./restypes/client/kr/tb_Npc";
-import Korean_tb_Photo_Item from "./restypes/client/kr/tb_Photo_Item";
+import TableComponent from "./components/table.vue";
 
-import Japanese_tb_CashBilling_Info from "./restypes/client/jp/tb_CashBilling_Info";
-import Japanese_tb_CashShop from "./restypes/client/jp/tb_CashShop";
-import Japanese_tb_NPC from "./restypes/client/jp/tb_NPC";
-import Japanese_tb_Akashic_Records from "./restypes/client/jp/tb_Akashic_Records";
-import Japanese_tb_Random_Option from "./restypes/client/jp/tb_Random_Option";
-import Japanese_tb_Social_Item from "./restypes/client/jp/tb_Social_Item";
+import { basename } from "node:path";
+import { Buffer } from "node:buffer";
+import { GameToken } from "./types/game-token";
+import type { ResTable } from "./types/res-table";
+import type { ResFile } from "./types/res-file";
+import type { ClientInfo } from "./types/client-info";
+import { ParsersBuilder } from "./core/parsers-builder";
+import { registerKorean } from "./core/register/korean";
+import { registerJapanese } from "./core/register/japanese";
 
-// import Japanese_tb_Echelon from "./restypes/client/jp/tb_Echelon";
-import Japanese_tb_Title_Info from "./restypes/client/jp/tb_Title_Info";
-import Japanese_tb_Title_Reward from "./restypes/client/jp/tb_Title_Reward";
-// import Japanese_tb_Title_String from "./restypes/client/jp/tb_Title_String";
-import Japanese_tb_Buff from "./restypes/client/jp/tb_Buff";
-
-import { basename } from "path";
-
-type ResTable = { count: number; rows: { [key: string]: any }[] };
-
-type ResFile = {
-  filename: string;
-  parsed: ResTable;
+const file = ref<ResFile | null>(null);
+const clientNames = {
+  [GameToken.kr]: "[OnStove] Korean",
+  [GameToken.jp]: "[WeMade] Japanese",
 };
 
-const enum GameToken {
-  kr,
-  jp,
+const parsers = new ParsersBuilder();
+
+registerKorean(parsers);
+registerJapanese(parsers);
+
+const clients = parsers.build();
+const activeClient = ref(clients[GameToken.kr]);
+
+function changeActiveClient(client: ClientInfo) {
+  activeClient.value = client;
 }
 
-type ClientInfo = {
-  token: GameToken;
-  parsers: {
-    [key: string]: {
-      parser: Parser;
-      tested: string;
-    };
+function convertToCSV() {
+  if (file.value === null) {
+    console.warn("file is null?");
+    return;
+  }
+
+  const header = Object.keys(file.value.parsed.rows[0]).join();
+  const body = file.value.parsed.rows.map((c) => Object.values(c).join()).join("\n");
+
+  downloadFile(`${header}\n${body}`, `${file.value.filename}.csv`);
+}
+
+function downloadFile(data: string, fileName: string) {
+  const csvData = data;
+  const blob = new Blob([csvData], { type: "application/csv;charset=utf-16;" });
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.style.visibility = "hidden";
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+function onSelectFile(ev: Event) {
+  const target = ev.target as HTMLInputElement;
+  if (target.files!.length < 1) {
+    return;
+  }
+
+  file.value = null;
+
+  const usedFile = target.files![0];
+  const fileReader = new FileReader();
+
+  fileReader.onload = (e) => {
+    if (!(e.target instanceof FileReader)) return;
+
+    const { result } = e.target;
+    if (!(result instanceof ArrayBuffer)) return;
+
+    const buffer = Buffer.from(result);
+    const name = basename(usedFile.name.toLowerCase(), ".res");
+
+    file.value = resParse(name, buffer);
   };
-};
 
-type ClientInfos = Record<GameToken.kr | GameToken.jp, ClientInfo>;
+  fileReader.readAsArrayBuffer(usedFile);
+}
 
-export default defineComponent({
-  name: "app",
-  methods: {
-    changeActiveClient(client: ClientInfo) {
-      this.activeClient = client;
-      console.log(this.activeClient);
-    },
+function resParse(name: string, array: Buffer): ResFile | null {
+  if (!(name in activeClient.value.parsers)) {
+    console.warn(`${name} bad file`);
+    return null;
+  }
 
-    convertToCSV() {
-      const header = Object.keys(this.file!.parsed.rows[0]).join();
-      const body = this.file!.parsed.rows.map((c) => Object.values(c).join()).join("\n");
-
-      this.downloadFile(`${header}\n${body}`, `${this.file!.filename}.csv`);
-    },
-
-    downloadFile(data: string, fileName: string) {
-      const csvData = data;
-      const blob = new Blob([csvData], { type: "application/csv;charset=utf-16;" });
-
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.style.visibility = "hidden";
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    },
-
-    onSelectFile(ev: Event) {
-      const target = ev.target as HTMLInputElement;
-      if (target.files!.length < 1) {
-        return;
-      }
-
-      this.file = null;
-
-      const file = target.files![0];
-      const fileReader = new FileReader();
-
-      fileReader.onload = (ev) => (this.file = this.resParse(basename(file.name.toLowerCase(), ".res"), Buffer.from(ev.target!.result as Uint8Array)));
-
-      fileReader.readAsArrayBuffer(file);
-    },
-
-    resParse(name: string, array: Buffer): ResFile | null {
-      console.log(this.activeClient.parsers);
-
-      if (!(name in this.activeClient.parsers)) {
-        return null;
-      }
-
-      const parser = this.activeClient.parsers[name].parser;
-      return { filename: name, parsed: parser.parse(array) as ResTable };
-    },
-  },
-
-  data() {
-    return {
-      file: null as ResFile | null,
-      clientName: {
-        [GameToken.kr]: "[OnStove] Korean",
-
-        [GameToken.jp]: "[WeMade] Japanese",
-      },
-    };
-  },
-
-  setup() {
-    const clients: ClientInfos = {
-      [GameToken.kr]: {
-        token: GameToken.kr,
-        parsers: {},
-      },
-      [GameToken.jp]: {
-        token: GameToken.jp,
-        parsers: {},
-      },
-    };
-
-    const activeClient = ref(clients[GameToken.kr]);
-
-    const resRegisterParser = (gameToken: GameToken, tested: string, name: string, func: (parser: Parser) => any) => {
-      const fixedName = name.toLowerCase();
-
-      const parser = new Parser()
-        .endianess("little")
-        .uint32("count")
-        .array("rows", { length: "count", type: func(new Parser()) })
-        .uint16("crcLen")
-        .string("crc", { length: "crcLen" }) as unknown as Parser;
-
-      clients[gameToken].parsers[fixedName] = { tested, parser };
-    };
-
-    const registerKorean = () => {
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_UI_String", Korean_tb_UI_String);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Option_String", Korean_tb_Option_String);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_item_model", Korean_tb_item_model);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_item", Korean_tb_item);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Appearance", Korean_tb_Appearance);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Create_Cloth", Korean_tb_Create_Cloth);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_CreateOption", Korean_tb_CreateOption);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Customize_Info", Korean_tb_Customize_Info);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Customize_Eyes", Korean_tb_Customize_Eyes);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Customize_Hair", Korean_tb_Customize_Hair);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Customize_Skin", Korean_tb_Customize_Skin);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Customize_View_Ani", Korean_tb_Customize_View_Ani);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Customize_View_Ani", Korean_tb_Customize_View_Ani);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Customize_View_Costume", Korean_tb_Customize_View_Costume);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Customize_View_Sound", Korean_tb_Customize_View_Sound);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Customize_View_Weapon", Korean_tb_Customize_View_Weapon);
-      resRegisterParser(GameToken.kr, "1.7.50.11", "tb_Event_Condition", Korean_tb_Event_Condition);
-      resRegisterParser(GameToken.kr, "1.7.66.13", "tb_District", Korean_tb_District);
-      resRegisterParser(GameToken.kr, "1.7.66.13", "tb_Npc", Korean_tb_Npc);
-      resRegisterParser(GameToken.kr, "1.7.66.13", "tb_Photo_Item", Korean_tb_Photo_Item);
-    };
-
-    const registerJapanese = () => {
-      resRegisterParser(GameToken.jp, "1.11.11.7 (kr-1.7.50.11)", "tb_UI_String", Korean_tb_UI_String);
-      resRegisterParser(GameToken.jp, "1.11.11.7", "tb_CashBilling_Info", Japanese_tb_CashBilling_Info);
-      resRegisterParser(GameToken.jp, "1.11.11.7", "tb_CashShop", Japanese_tb_CashShop);
-      resRegisterParser(GameToken.jp, "1.11.11.7", "tb_NPC", Japanese_tb_NPC);
-      resRegisterParser(GameToken.jp, "1.11.11.7", "tb_Akashic_Records", Japanese_tb_Akashic_Records);
-      resRegisterParser(GameToken.jp, "1.11.11.7", "tb_Random_Option", Japanese_tb_Random_Option);
-      resRegisterParser(GameToken.jp, "1.11.11.7", "tb_Social_Item", Japanese_tb_Social_Item);
-
-      // resRegisterParser(GameToken.jp, "1.11.9.3", "tb_Echelon", Japanese_tb_Echelon);
-      resRegisterParser(GameToken.jp, "1.11.9.3", "tb_Title_Info", Japanese_tb_Title_Info);
-      resRegisterParser(GameToken.jp, "1.11.9.3", "tb_Title_Reward", Japanese_tb_Title_Reward);
-      // resRegisterParser(GameToken.jp, "1.11.9.3", "tb_Title_String", Japanese_tb_Title_String);
-      resRegisterParser(GameToken.jp, "1.11.9.3", "tb_Buff", Japanese_tb_Buff);
-    };
-
-    registerKorean();
-    registerJapanese();
-
-    return {
-      activeClient,
-      clients,
-    };
-  },
-
-  components: {
-    TableComponent: defineAsyncComponent(() => import("./components/table.vue")),
-  },
-});
+  const parser = activeClient.value.parsers[name].parser;
+  return { filename: name, parsed: parser.parse(array) as ResTable };
+}
 </script>
 
 <style lang="scss">
-@use "@/styles/reset.scss";
-@use "@/styles/typography.scss";
+@use "./styles/reset.scss";
+@use "./styles/typography.scss";
 
 #app {
   background-color: rgb(29, 29, 29);

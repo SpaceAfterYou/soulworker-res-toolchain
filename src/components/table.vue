@@ -1,11 +1,6 @@
 <template>
   <div class="pages" v-if="pages > 1">
-    <span
-      v-for="(index, key) in Math.ceil(table.count / limit)"
-      :class="['page', { 'selected-page': key == offset }]"
-      :key="key"
-      @click="pageChange(key)"
-    >
+    <span v-for="(index, key) in Math.ceil(table.count / limit)" :class="['page', { 'selected-page': key == offset }]" :key="key" @click="pageChange(key)">
       {{ index }}
     </span>
   </div>
@@ -18,44 +13,34 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
+import type { ResTable } from "../types/res-table";
 
-export default defineComponent({
-  name: "HelloWorld",
+type Props = {
+  table: ResTable;
+};
 
-  data() {
-    return {
-      offset: 0,
-    };
-  },
+const { table } = defineProps<Props>();
 
-  methods: {
-    values() {
-      const offset = this.offset * this.limit;
-      return this.table.rows.slice(offset, offset + this.limit);
-    },
+const offset = ref(0);
+const limit = 300;
+const keys = Object.keys(table.rows[0]);
 
-    pageChange(offset: number) {
-      this.offset = offset;
-    },
-  },
+const tableStyle = {
+  gridTemplateColumns: `repeat(${keys.length}, min-content)`,
+};
 
-  setup(props) {
-    const keys = Object.keys(props.table.rows[0]);
+const pages = Math.ceil(table.count / limit);
 
-    const tableStyle = {
-      gridTemplateColumns: `repeat(${keys.length}, min-content)`,
-    };
+function values() {
+  const o = offset.value * limit;
+  return table.rows.slice(o, o + limit);
+}
 
-    const limit = 300;
-    const pages = Math.ceil(props.table.count / limit);
-
-    return { keys, tableStyle, pages, limit };
-  },
-
-  props: ["table"],
-});
+function pageChange(value: number) {
+  offset.value = value;
+}
 </script>
 
 <style lang="scss" scoped>
