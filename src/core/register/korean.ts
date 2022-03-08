@@ -19,6 +19,7 @@ import Korean_tb_Event_Condition from "@/restypes/client/kr/tb_Event_Condition";
 import Korean_tb_District from "@/restypes/client/kr/tb_District";
 import Korean_tb_Npc from "@/restypes/client/kr/tb_Npc";
 import Korean_tb_Photo_Item from "@/restypes/client/kr/tb_Photo_Item";
+import Korean_tb_Gesture from "@/restypes/client/kr/tb_Gesture";
 
 import { GameVersion } from "../../types/game-version";
 import { GameToken } from "../../types/game-token";
@@ -43,4 +44,5 @@ export const registerKorean = (parsers: ParsersBuilder) => {
   parsers.add(GameToken.kr, GameVersion.kr_1_7_66_13, "tb_District", Korean_tb_District);
   parsers.add(GameToken.kr, GameVersion.kr_1_7_66_13, "tb_Npc", Korean_tb_Npc);
   parsers.add(GameToken.kr, GameVersion.kr_1_7_66_13, "tb_Photo_Item", Korean_tb_Photo_Item);
+  parsers.add(GameToken.kr, GameVersion.kr_1_7_66_13, "tb_Gesture", Korean_tb_Gesture);
 };
