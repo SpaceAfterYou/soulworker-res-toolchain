@@ -142,7 +142,7 @@ function resParse(name: string, array: Buffer): ResFile | null {
   color: #ebebeb;
   display: grid;
   grid-template-columns: min-content 1fr;
-  height: 100%;
+  min-height: 100%;
 }
 
 h3 {
