@@ -1,15 +1,13 @@
 name: GitHub Pages Deploy
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [14.x]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -18,7 +16,7 @@ jobs:
       - name: Setup node env
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
 
       - name: Install dependencies
         run: yarn install
