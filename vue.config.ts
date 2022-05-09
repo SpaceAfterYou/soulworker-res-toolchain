@@ -1,5 +1,6 @@
-import { basePath } from './base-path';
+import { basePath } from "./base-path";
+
 export default {
   productionSourceMap: false,
-  publicPath: basePath
+  publicPath: basePath,
 };
