@@ -23,6 +23,8 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+        with:
+          version: 7
 
       - name: Build project
         run: pnpm build
