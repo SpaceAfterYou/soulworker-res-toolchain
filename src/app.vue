@@ -50,22 +50,25 @@ import type { ResTable } from "./types/res-table";
 import type { ResFile } from "./types/res-file";
 import type { ClientInfo } from "./types/client-info";
 import { ParsersBuilder } from "./core/parsers-builder";
+import { registerGlobal } from "./core/register/global";
 import { registerKorean } from "./core/register/korean";
 import { registerJapanese } from "./core/register/japanese";
 
 const file = ref<ResFile | null>(null);
 const clientNames = {
+  [GameToken.gb]: "[Steam] Global/Taiwan",
   [GameToken.kr]: "[OnStove] Korean",
   [GameToken.jp]: "[WeMade] Japanese",
 };
 
 const parsers = new ParsersBuilder();
 
+registerGlobal(parsers);
 registerKorean(parsers);
 registerJapanese(parsers);
 
 const clients = parsers.build();
-const activeClient = ref(clients[GameToken.kr]);
+const activeClient = ref(clients[GameToken.gb]);
 
 function changeActiveClient(client: ClientInfo) {
   activeClient.value = client;

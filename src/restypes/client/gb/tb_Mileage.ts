@@ -1,0 +1,25 @@
+import { Parser } from 'binary-parser';
+import '../../sw-string';
+
+export default (parser = new Parser()) => parser
+	.uint32("v0")
+	.uint16("v1")
+	.uint16("v2")
+	.uint16("v3")
+	.swstring("v4")
+	.uint32("v5")
+	.uint8("v6")
+	.uint32("v7")
+	.swstring("v8")
+	.uint32("v9")
+	.uint32("v10")
+	.swstring("v11")
+	.uint32("v12")
+	.uint8("v13")
+	.uint8("v14")
+	.uint8("v15")
+	.uint32("v16")
+	.uint32("v17")
+	.uint32("v18")
+	.uint32("v19")
+	.swstring("v20")

@@ -23,6 +23,10 @@ export class ParsersBuilder {
   }
 
   private readonly values: ClientInfos = {
+    [GameToken.gb]: {
+      token: GameToken.gb,
+      parsers: {},
+    },
     [GameToken.kr]: {
       token: GameToken.kr,
       parsers: {},
