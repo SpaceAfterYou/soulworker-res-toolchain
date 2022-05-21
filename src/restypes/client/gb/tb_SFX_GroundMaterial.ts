@@ -4,4 +4,4 @@ import '../../sw-string';
 export default (parser = new Parser()) => parser
 	.uint8("v0")
 	.swstring("v1")
-	.swstring("v2")
+	.floatle("v2")

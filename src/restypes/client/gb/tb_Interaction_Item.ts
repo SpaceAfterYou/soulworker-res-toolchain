@@ -44,7 +44,7 @@ export default (parser = new Parser()) => parser
 	.swstring("v39")
 	.swstring("v40")
 	.swstring("v41")
-	.swstring("v42")
+	.floatle("v42")
 	.int16("v43")
 	.int16("v44")
 	.int16("v45")

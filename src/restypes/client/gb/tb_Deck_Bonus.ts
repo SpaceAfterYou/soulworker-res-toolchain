@@ -7,4 +7,4 @@ export default (parser = new Parser()) => parser
 	.uint8("v2")
 	.uint16("v3")
 	.uint8("v4")
-	.swstring("v5")
+	.floatle("v5")
