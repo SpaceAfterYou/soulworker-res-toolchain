@@ -19,7 +19,8 @@ const definedTypes = {
   'UInt32': 'uint32',
   'Int64': 'int64',
   'UInt64': 'uint64',
-  'String': 'swstring'
+  'String': 'swstring',
+  'Single': 'floatle'
 }
 
 /**
