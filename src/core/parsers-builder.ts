@@ -9,17 +9,23 @@ export class ParsersBuilder {
     return this.values;
   }
 
-  public add(gameToken: GameToken, tested: GameVersion, name: string, func: (parser: Parser) => Parser) {
-    const fixedName = name.toLowerCase();
+  public add(region: GameToken, version: GameVersion, name: string, func: (parser: Parser) => Parser) {
+    const lowerName = name.toLowerCase();
+
+    const info = this.values[region];
+
+    if (lowerName in info.parsers) {
+      throw new Error(`Already parser (${lowerName}) for ${region} region with ${version} game version already registered. Wanna some bear?`);
+    }
 
     const parser = new Parser()
       .endianess("little")
       .uint32("count")
-      .array("rows", { length: "count", type: func(new Parser()) })
+      .array("rows", { length: "count", type: func(new Parser().endianess("little")) })
       .uint16("crcLen")
-      .string("crc", { length: "crcLen" }) as unknown as Parser;
+      .string("crc", { length: "crcLen" });
 
-    this.values[gameToken].parsers[fixedName] = { tested, parser };
+    this.values[region].parsers[lowerName] = { tested: version, parser };
   }
 
   private readonly values: ClientInfos = {
