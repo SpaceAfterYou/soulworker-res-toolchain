@@ -7,8 +7,3 @@ export default (parser = new Parser()) => parser
 	.uint8("v2")
 	.uint16("v3")
 	.uint16("v4")
-	.swstring("v5")
-	.uint16("v6")
-	.uint16("v7")
-	.swstring("v8")
-	.swstring("v9")
